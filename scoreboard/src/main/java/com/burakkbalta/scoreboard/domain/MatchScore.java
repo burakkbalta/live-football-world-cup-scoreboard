@@ -1,5 +1,8 @@
 package com.burakkbalta.scoreboard.domain;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class MatchScore {
     
     private int homeTeamScore;
@@ -33,11 +36,12 @@ public class MatchScore {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + homeTeamScore;
-        result = prime * result + awayTeamScore;
-        return result;
+        final int firstPrime = 17;
+        final int secondPrime = 37;
+        return new HashCodeBuilder(firstPrime, secondPrime)
+                    .append(homeTeamScore)
+                    .append(awayTeamScore)
+                    .toHashCode();
     }
 
     @Override
@@ -48,11 +52,10 @@ public class MatchScore {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final MatchScore other = (MatchScore) obj;
-        if (homeTeamScore != other.homeTeamScore)
-            return false;
-        if (awayTeamScore != other.awayTeamScore)
-            return false;
-        return true;
+        MatchScore other = (MatchScore) obj;
+        return new EqualsBuilder()
+                    .append(homeTeamScore, other.homeTeamScore)
+                    .append(awayTeamScore, other.awayTeamScore)
+                    .isEquals();
     }    
 }

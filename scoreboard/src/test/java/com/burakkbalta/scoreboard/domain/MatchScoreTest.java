@@ -32,7 +32,7 @@ public class MatchScoreTest {
     @Test
     public void givenMatchScore_whenHashCode_thenCorrectHashValueIsReturned() {
         MatchScore matchScore = new MatchScore(1,1);
-        final int hashCode = 993;
+        final int hashCode = 23311;
 
         assertEquals(hashCode, matchScore.hashCode());
     }
