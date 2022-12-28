@@ -48,7 +48,7 @@ public class MatchScoreTest {
     @Test
     public void givenMatchScore_whenHomeTeamScoreIsUpdated_thenThatUpdatedScoreIsReturned() {
         MatchScore matchScore = new MatchScore();
-        matchScore.setAwayTeamScore(5);
+        matchScore.setHomeTeamScore(5);
 
         assertEquals(5, matchScore.getHomeTeamScore());
     }
