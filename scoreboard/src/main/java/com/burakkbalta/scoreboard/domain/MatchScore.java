@@ -8,9 +8,12 @@ public class MatchScore {
     private int homeTeamScore;
     private int awayTeamScore;
     
-    public MatchScore() {
-        this.homeTeamScore = 0;
-        this.awayTeamScore = 0;
+    public static MatchScore createWithDefaultScores() {
+        return new MatchScore(0,0);
+    }
+
+    public static MatchScore createWithCustomScores(final int homeTeamScore, final int awayTeamScore) {
+        return new MatchScore(homeTeamScore, awayTeamScore);
     }
 
     public MatchScore(final int homeTeamScore, final int awayTeamScore) {
