@@ -9,7 +9,7 @@ public class MatchScoreTest {
     @Test
     public void givenTwoEqualsMatchScores_whenEquals_thenTrueIsReturned() {
         MatchScore matchScore = MatchScore.createWithCustomScores(3,3);
-        MatchScore matchScoreIdentical = new MatchScore(3,3);
+        MatchScore matchScoreIdentical = MatchScore.createWithCustomScores(3,3);
 
         assertTrue("equals function should be returned true since objects are same."
                 , matchScore.equals(matchScoreIdentical));
