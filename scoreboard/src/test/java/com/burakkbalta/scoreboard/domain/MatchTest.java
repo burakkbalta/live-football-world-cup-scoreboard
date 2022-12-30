@@ -11,10 +11,12 @@ public class MatchTest {
     @Test
     public void whenCreateMatch_thenCorrectMatchIsReturned() {
         Match match = Match.createMatch("Mexico", "Canada");
+        MatchScore matchScore = MatchScore.createWithDefaultScores();
 
         assertEquals(Match.class, match.getClass());
         assertEquals("Mexico", match.getHomeTeamName());
         assertEquals("Canada", match.getAwayTeamName());
+        assertEquals(matchScore, match.getMatchScore());
     }
 
     @Test
@@ -49,11 +51,21 @@ public class MatchTest {
     }
 
     @Test
-    public void givenMatchScore_whenHashCode_thenCorrectHashValueIsReturned() {
+    public void givenMatch_whenHashCode_thenCorrectHashValueIsReturned() {
         Match match = Match.createMatch("Argentina", "Australia");
-        final int hashCode = 2052527372;
+        final int hashCode = -1365875291;
 
         assertEquals(hashCode, match.hashCode());
+    }
 
+    @Test
+    public void givenCreatedMatch_whenGetMatchScore_thenTheMatchScoreWithZerosIsReturned() {
+        Match match = Match.createMatch("Germany", "France");
+        MatchScore matchScoreWithDefault = MatchScore.createWithDefaultScores();
+
+        final var matchScore = match.getMatchScore();
+        assertEquals(0, matchScore.getHomeTeamScore());
+        assertEquals(0, matchScore.getAwayTeamScore());
+        assertEquals(matchScoreWithDefault, matchScore);
     }
 }

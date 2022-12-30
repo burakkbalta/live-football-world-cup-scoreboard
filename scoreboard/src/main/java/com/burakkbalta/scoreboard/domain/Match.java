@@ -2,34 +2,42 @@ package com.burakkbalta.scoreboard.domain;
 
 import java.time.LocalDateTime;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Match {
     
     private final String homeTeamName;
     private final String awayTeamName;
+    private final MatchScore matchScore;
     private final LocalDateTime startTime;
 
     public static Match createMatch(final String homeTeamName, final String awayTeamName) {
-        return null;
+        return new Match(homeTeamName, awayTeamName, MatchScore.createWithDefaultScores(), LocalDateTime.now());
     }
 
-    private Match(final String homeTeamName, final String awayTeamName, final LocalDateTime startTime) {
+    private Match(final String homeTeamName, final String awayTeamName, final MatchScore matchScore, 
+            final LocalDateTime startTime) {
         this.homeTeamName = homeTeamName;
         this.awayTeamName = awayTeamName;
+        this.matchScore = matchScore;
         this.startTime = startTime;
     }
 
     public String getHomeTeamName() {
-        return "";
+        return this.homeTeamName;
     }
 
     public String getAwayTeamName() {
-        return "";
+        return this.awayTeamName;
+    }
+
+    public MatchScore getMatchScore() {
+        return this.matchScore;
     }
 
     public LocalDateTime getStartTime() {
-        return LocalDateTime.MIN;
+        return this.startTime;
     }
 
     @Override
@@ -39,12 +47,24 @@ public class Match {
         return new HashCodeBuilder(firstPrime, secondPrime)
                     .append(homeTeamName)
                     .append(awayTeamName)
+                    .append(matchScore)
                     .toHashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-       return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Match other = (Match) obj;
+        return new EqualsBuilder()
+                    .append(homeTeamName, other.homeTeamName)
+                    .append(awayTeamName, other.awayTeamName)
+                    .append(matchScore, other.matchScore)
+                    .isEquals();
     }
 
     
