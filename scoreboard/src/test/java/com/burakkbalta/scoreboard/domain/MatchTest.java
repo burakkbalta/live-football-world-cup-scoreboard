@@ -1,11 +1,12 @@
 package com.burakkbalta.scoreboard.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MatchTest {
     @Test
@@ -24,8 +25,33 @@ public class MatchTest {
         Match match = Match.createMatch("Spain", "Brazil");
         Match matchIdentical = Match.createMatch("Spain", "Brazil");
 
-        assertTrue("equals function should be returned true since objects are same."
-                , match.equals(matchIdentical));
+        assertTrue(match.equals(matchIdentical), 
+                "equals function should return true since objects are same.");
+    }
+
+    @Test
+    public void givenMatch_whenEqualsIsInvokedWithItself_thenTrueIsReturned() {
+        Match match = Match.createMatch("Spain","Brazil");
+
+        assertTrue(match.equals(match), 
+            "since equals function is invoked with itself, it should return true.");
+    }
+
+    @Test
+    public void givenMatchScoreAndNullObject_whenEquals_thenFalseIsReturned() {
+        Match match = Match.createMatch("Germany", "France");
+
+        assertFalse(match.equals(null), 
+            "equals function should return false while comparing null with concrete object.");
+    }
+
+    @Test
+    public void givenMatchAndMatchScore_whenEquals_thenFalseIsReturned() {
+        Match match = Match.createMatch("Mexico", "Canada");
+        MatchScore matchScore = MatchScore.createWithDefaultScores();
+
+        assertFalse(match.equals(matchScore), 
+            "equals function should return false while comparing Match with MatchScore classes.");
     }
 
     @Test
@@ -47,7 +73,7 @@ public class MatchTest {
         Match match = Match.createMatch("Argentina", "Australia");
         boolean isAhead = LocalDateTime.now().compareTo(match.getStartTime()) > 0;
 
-        assertTrue("Current time should be ahead of start time start time of match object", isAhead);
+        assertTrue(isAhead, "Current time should be ahead of start time start time of match object.");
     }
 
     @Test

@@ -1,9 +1,10 @@
 package com.burakkbalta.scoreboard.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MatchScoreTest {
     @Test
@@ -11,8 +12,33 @@ public class MatchScoreTest {
         MatchScore matchScore = MatchScore.createWithCustomScores(3,3);
         MatchScore matchScoreIdentical = MatchScore.createWithCustomScores(3,3);
 
-        assertTrue("equals function should be returned true since objects are same."
-                , matchScore.equals(matchScoreIdentical));
+        assertTrue(matchScore.equals(matchScoreIdentical), 
+            "equals function should return true since objects are same.");
+    }
+
+    @Test
+    public void givenMatchScore_whenEqualsIsInvokedWithItself_thenTrueIsReturned() {
+        MatchScore matchScore = MatchScore.createWithCustomScores(3,3);
+
+        assertTrue(matchScore.equals(matchScore), 
+            "since equals function is invoked with itself, it should return true.");
+    }
+
+    @Test
+    public void givenMatchScoreAndNullObject_whenEquals_thenFalseIsReturned() {
+        MatchScore matchScore = MatchScore.createWithDefaultScores();
+
+        assertFalse(matchScore.equals(null), 
+            "equals function should return false while comparing null with concrete object.");
+    }
+
+    @Test
+    public void givenMatchScoreAndString_whenEquals_thenFalseIsReturned() {
+        MatchScore matchScore = MatchScore.createWithDefaultScores();
+        Object dummyObject = new String("dummy object");
+
+        assertFalse(matchScore.equals(dummyObject), 
+            "equals function should return false while comparing String class with concrete object.");
     }
 
     @Test
