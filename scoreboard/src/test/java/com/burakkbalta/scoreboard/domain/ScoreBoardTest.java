@@ -31,13 +31,35 @@ public class ScoreBoardTest {
         );
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name="Match #{index}")
     @MethodSource("matchesAndMatchIdsProvider")
-    void givenScoreBoard_whenStartGame_ThenMatchIdIsReturnedSequentially(Match match, int correspondingMatchId) {
+    void givenScoreBoardWithDataProvider_whenStartGame_ThenMatchIdIsReturnedSequentially(Match match, 
+            int correspondingMatchId) {
         var homeTeam = match.getHomeTeamName();
         var awayTeam = match.getAwayTeamName();
         var matchId = scoreBoard.startGame(homeTeam, awayTeam);
 
         assertEquals(correspondingMatchId, matchId);
     }
+
+    @Test
+    void givenMultipleMatchesOnScoreBoard_whenStartGame_ThenTotalNumberOfLiveMatchIsReturned() {
+        var matches = Stream.of(
+            Match.createMatch("Mexico", "Canada"),
+            Match.createMatch("Spain", "Brazil"),
+            Match.createMatch("Germany", "France"),
+            Match.createMatch("Uruguay", "Italy"),
+            Match.createMatch("Argentina", "Australia")
+        );
+
+        var matchCountWrapper = new Object(){ int matchCount = 0; };
+
+        matches.forEach(match -> {
+            scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName());
+            matchCountWrapper.matchCount++;
+        });
+
+        assertEquals(matchCountWrapper.matchCount, ((ScoreBoard)scoreBoard).getLiveMatches().size());
+    }
+
 }

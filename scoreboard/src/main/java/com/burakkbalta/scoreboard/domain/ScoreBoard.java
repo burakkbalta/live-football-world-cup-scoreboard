@@ -2,12 +2,14 @@ package com.burakkbalta.scoreboard.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.burakkbalta.scoreboard.interfaces.IScoreBoard;
 
 public class ScoreBoard implements IScoreBoard {
 
-    private Map<Integer, Match> liveMatches;
+    private final Map<Integer, Match> liveMatches;
+    private static final AtomicInteger matchIdCounter = new AtomicInteger(-1);
 
     public ScoreBoard() {
         liveMatches = new HashMap<>();
@@ -45,8 +47,9 @@ public class ScoreBoard implements IScoreBoard {
      */
     @Override
     public int startGame(final String homeTeamName, final String awayTeamName) {
-        // TODO Auto-generated method stub
-        return -1;
+        Match match = Match.createMatch(homeTeamName, awayTeamName);
+        liveMatches.put(matchIdCounter.incrementAndGet(), match);
+        return matchIdCounter.get();
     }
 
     /**
@@ -59,6 +62,10 @@ public class ScoreBoard implements IScoreBoard {
     public void updateScore(final int matchId, final int homeTeamScore, final int awayTeamScore) {
         // TODO Auto-generated method stub
         
+    }
+
+    public Map<Integer, Match> getLiveMatches() {
+        return liveMatches;
     }
     
 }
