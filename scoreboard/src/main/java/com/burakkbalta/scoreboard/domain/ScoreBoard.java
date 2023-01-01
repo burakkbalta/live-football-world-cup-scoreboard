@@ -1,8 +1,10 @@
 package com.burakkbalta.scoreboard.domain;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import com.burakkbalta.scoreboard.interfaces.IScoreBoard;
 
@@ -36,8 +38,22 @@ public class ScoreBoard implements IScoreBoard {
      */
     @Override
     public String getSummaryInOrderByTotalScore() {
-        // TODO Auto-generated method stub
-        return null;
+        var matchesList = liveMatches.values().stream().collect(Collectors.toList());
+        var sortedMatches = matchesList.stream()
+                .sorted((lhs, rhs) -> { 
+                    int lhsTotalScore = lhs.getMatchScore().getHomeTeamScore() 
+                            + lhs.getMatchScore().getAwayTeamScore();      
+                    int rhsTotalScore = rhs.getMatchScore().getHomeTeamScore() 
+                            + rhs.getMatchScore().getAwayTeamScore();
+                    if(rhsTotalScore > lhsTotalScore) {
+                        return 1;
+                    } else if(lhsTotalScore == rhsTotalScore) {
+                        return rhs.getStartTime().compareTo(lhs.getStartTime());
+                    } else {
+                        return -1;
+                    }                
+                }).toList();
+        return getSummary(sortedMatches);        
     }
 
     /**
@@ -73,6 +89,26 @@ public class ScoreBoard implements IScoreBoard {
 
     public Map<Integer, Match> getLiveMatches() {
         return liveMatches;
+    }
+
+    private String getSummary(final List<Match> sortedMatches) {
+        StringBuilder summary = new StringBuilder();
+        Match match = null;
+        for(int i = 1; i<=sortedMatches.size(); i++) {
+            match = sortedMatches.get(i-1);
+            summary.append(i)
+                .append(". ")
+                .append(match.getHomeTeamName())
+                .append(" ")
+                .append(match.getMatchScore().getHomeTeamScore())
+                .append(" - ")
+                .append(match.getAwayTeamName())
+                .append(" ")
+                .append(match.getMatchScore().getAwayTeamScore())
+                .append("\n");
+        }
+
+        return summary.toString();
     }
     
 }
