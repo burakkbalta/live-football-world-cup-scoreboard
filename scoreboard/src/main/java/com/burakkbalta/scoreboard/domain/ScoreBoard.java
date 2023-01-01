@@ -59,9 +59,9 @@ public class ScoreBoard implements IScoreBoard {
      * @param awayTeamScore : new away team score
      */
     @Override
-    public void updateScore(final int matchId, final int homeTeamScore, final int awayTeamScore) {
+    public boolean updateScore(final int matchId, final int homeTeamScore, final int awayTeamScore) {
         // TODO Auto-generated method stub
-        
+        return false;
     }
 
     public Map<Integer, Match> getLiveMatches() {
