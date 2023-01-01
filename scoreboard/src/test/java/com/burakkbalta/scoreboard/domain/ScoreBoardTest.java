@@ -2,6 +2,7 @@ package com.burakkbalta.scoreboard.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,10 +16,18 @@ import com.burakkbalta.scoreboard.interfaces.IScoreBoard;
 public class ScoreBoardTest {
 
     private IScoreBoard scoreBoard = null;
+    private Stream<Match> matches;
 
     @BeforeEach
     void setUp() {
         scoreBoard = new ScoreBoard();    
+        matches = Stream.of(
+            Match.createMatch("Mexico", "Canada"),
+            Match.createMatch("Spain", "Brazil"),
+            Match.createMatch("Germany", "France"),
+            Match.createMatch("Uruguay", "Italy"),
+            Match.createMatch("Argentina", "Australia")
+        );
     }
 
     private static Stream<Arguments> matchesAndMatchIdsProvider() {
@@ -43,15 +52,7 @@ public class ScoreBoardTest {
     }
 
     @Test
-    void givenMultipleMatchesOnScoreBoard_whenStartGame_ThenTotalNumberOfLiveMatchIsReturned() {
-        var matches = Stream.of(
-            Match.createMatch("Mexico", "Canada"),
-            Match.createMatch("Spain", "Brazil"),
-            Match.createMatch("Germany", "France"),
-            Match.createMatch("Uruguay", "Italy"),
-            Match.createMatch("Argentina", "Australia")
-        );
-
+    void givenMultipleMatchesOnScoreBoard_whenStartGame_ThenTotalNumberOfLiveMatchesIsReturned() {
         var matchCountWrapper = new Object(){ int matchCount = 0; };
 
         matches.forEach(match -> {
@@ -60,6 +61,27 @@ public class ScoreBoardTest {
         });
 
         assertEquals(matchCountWrapper.matchCount, ((ScoreBoard)scoreBoard).getLiveMatches().size());
+    }
+
+    @Test
+    void givenMultipleMatchesOnScoreBoard_whenFinishGamesWithEvenMatchIds_ThenNumberOfLiveMatchesIsReturned() {
+        var matchCountWrapper = new Object(){ int matchCount = 0; };
+
+        matches.forEach(match -> {
+            scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName());
+            matchCountWrapper.matchCount++;
+        });
+
+        IntStream.range(0, matchCountWrapper.matchCount)
+            .filter(matchId -> {
+                return matchId % 2 == 0;
+            })
+            .forEach(evenMatchId -> {
+                scoreBoard.finishGame(evenMatchId);
+                matchCountWrapper.matchCount--;
+            });
+        
+        assertEquals(matchCountWrapper.matchCount, ((ScoreBoard)scoreBoard).getLiveMatches().size());    
     }
 
 }
