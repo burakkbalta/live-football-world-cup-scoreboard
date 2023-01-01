@@ -46,7 +46,7 @@ public class ScoreBoard implements IScoreBoard {
     @Override
     public int startGame(final String homeTeamName, final String awayTeamName) {
         // TODO Auto-generated method stub
-        return 0;
+        return -1;
     }
 
     /**
