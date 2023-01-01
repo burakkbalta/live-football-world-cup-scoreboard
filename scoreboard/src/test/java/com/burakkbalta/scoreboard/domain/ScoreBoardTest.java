@@ -8,14 +8,19 @@ import java.util.Map;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.burakkbalta.scoreboard.interfaces.IScoreBoard;
 
+@TestMethodOrder(OrderAnnotation.class)
 public class ScoreBoardTest {
 
     private IScoreBoard scoreBoard = null;
@@ -33,19 +38,26 @@ public class ScoreBoardTest {
         );
     }
 
+    @AfterEach
+    void tearDown() {
+        scoreBoard = null;
+        matches = null;
+    }
+
     private static Stream<Arguments> matchesAndMatchIdsProvider() {
         return Stream.of(
             Arguments.of(Match.createMatch("Mexico", "Canada"), 0),
-            Arguments.of(Match.createMatch("Spain", "Brazil"), 1),
-            Arguments.of(Match.createMatch("Germany", "France"), 2),
-            Arguments.of(Match.createMatch("Uruguay", "Italy"), 3),
-            Arguments.of(Match.createMatch("Argentina", "Australia"), 4)
+            Arguments.of(Match.createMatch("Spain", "Brazil"), 0),
+            Arguments.of(Match.createMatch("Germany", "France"), 0),
+            Arguments.of(Match.createMatch("Uruguay", "Italy"), 0),
+            Arguments.of(Match.createMatch("Argentina", "Australia"), 0)
         );
     }
 
     @ParameterizedTest(name="Match #{index}")
     @MethodSource("matchesAndMatchIdsProvider")
-    public void givenScoreBoardWithDataProvider_whenStartGame_ThenMatchIdIsReturnedSequentially(Match match, 
+    @Order(1)
+    public void givenScoreBoardWithDataProvider_whenStartGame_ThenMatchIdShouldBeZeroInEachExecution(Match match, 
             int correspondingMatchId) {
         var homeTeam = match.getHomeTeamName();
         var awayTeam = match.getAwayTeamName();
@@ -55,11 +67,13 @@ public class ScoreBoardTest {
     }
 
     @Test
+    @Order(2)
     public void givenMultipleMatchesOnScoreBoard_whenStartGame_ThenTotalNumberOfLiveMatchesIsReturned() {
         var matchCountWrapper = new Object(){ int matchCount = 0; };
 
         matches.forEach(match -> {
-            scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName());
+            assertEquals(matchCountWrapper.matchCount, 
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
             matchCountWrapper.matchCount++;
         });
 
@@ -67,6 +81,7 @@ public class ScoreBoardTest {
     }
 
     @Test
+    @Order(3)
     public void givenMultipleMatchesOnScoreBoard_whenFinishGamesWithEvenMatchIds_ThenNumberOfLiveMatchesIsReturned() {
         var matchCountWrapper = new Object(){ int matchCount = 0; };
 
@@ -88,6 +103,7 @@ public class ScoreBoardTest {
     }
 
     @Test
+    @Order(4)
     public void givenMultipleMatchesOnScoreBoard_whenFinishGamesWithUnexistedMatchIds_ThenFalseIsReturnedForEachCall() {
         var matchCountWrapper = new Object(){ int matchCount = 0; };
 
@@ -108,6 +124,7 @@ public class ScoreBoardTest {
     }
 
     @Test
+    @Order(5)
     public void givenMultipleMatchesOnScoreBoard_whenMatchScoresAreUpdated_ThenTrueIsReturnedForEachCall() {
         var matchCountWrapper = new Object(){ int matchCount = 0; };
 
@@ -136,6 +153,7 @@ public class ScoreBoardTest {
     }
 
     @Test
+    @Order(6)
     public void givenScoreBoard_whenMatchScoresForNonExistentMatchesAreUpdated_ThenFalseIsReturnedForEachCall() {
         var matchCountWrapper = new Object(){ int matchCount = 0; };
 

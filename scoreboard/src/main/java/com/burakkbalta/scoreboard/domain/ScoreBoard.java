@@ -9,10 +9,11 @@ import com.burakkbalta.scoreboard.interfaces.IScoreBoard;
 public class ScoreBoard implements IScoreBoard {
 
     private final Map<Integer, Match> liveMatches;
-    private static final AtomicInteger matchIdCounter = new AtomicInteger(-1);
+    private final AtomicInteger matchIdCounter;
 
     public ScoreBoard() {
         liveMatches = new HashMap<>();
+        matchIdCounter = new AtomicInteger(-1);
     }
 
     /**
@@ -60,8 +61,14 @@ public class ScoreBoard implements IScoreBoard {
      */
     @Override
     public boolean updateScore(final int matchId, final int homeTeamScore, final int awayTeamScore) {
-        // TODO Auto-generated method stub
-        return false;
+        Match match = liveMatches.get(matchId);
+        if(match != null) {
+            match.getMatchScore().setHomeTeamScore(homeTeamScore);
+            match.getMatchScore().setAwayTeamScore(awayTeamScore);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Map<Integer, Match> getLiveMatches() {
