@@ -48,7 +48,7 @@ public class MatchTest {
     @Test
     public void givenMatchAndMatchScore_whenEquals_thenFalseIsReturned() {
         Match match = Match.createMatch("Mexico", "Canada");
-        MatchScore matchScore = MatchScore.createWithDefaultScores();
+        Object matchScore = MatchScore.createWithDefaultScores();
 
         assertFalse(match.equals(matchScore), 
             "equals function should return false while comparing Match with MatchScore classes.");

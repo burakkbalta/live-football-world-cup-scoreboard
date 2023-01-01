@@ -2,7 +2,9 @@ package com.burakkbalta.scoreboard.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
+/**
+ * This class keeps the match scores. 
+ */
 public class MatchScore {
     
     private int homeTeamScore;

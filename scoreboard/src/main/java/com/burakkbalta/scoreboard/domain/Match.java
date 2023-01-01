@@ -4,7 +4,11 @@ import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
+/**
+ * This class represents the game.
+ * When the game starts, the initial scores is set to 0-0.
+ * The start time indicates when the match started to be track.
+ */
 public class Match {
     
     private final String homeTeamName;
