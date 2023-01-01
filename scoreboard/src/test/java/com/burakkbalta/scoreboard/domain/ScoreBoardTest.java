@@ -1,6 +1,8 @@
 package com.burakkbalta.scoreboard.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -42,7 +44,7 @@ public class ScoreBoardTest {
 
     @ParameterizedTest(name="Match #{index}")
     @MethodSource("matchesAndMatchIdsProvider")
-    void givenScoreBoardWithDataProvider_whenStartGame_ThenMatchIdIsReturnedSequentially(Match match, 
+    public void givenScoreBoardWithDataProvider_whenStartGame_ThenMatchIdIsReturnedSequentially(Match match, 
             int correspondingMatchId) {
         var homeTeam = match.getHomeTeamName();
         var awayTeam = match.getAwayTeamName();
@@ -52,7 +54,7 @@ public class ScoreBoardTest {
     }
 
     @Test
-    void givenMultipleMatchesOnScoreBoard_whenStartGame_ThenTotalNumberOfLiveMatchesIsReturned() {
+    public void givenMultipleMatchesOnScoreBoard_whenStartGame_ThenTotalNumberOfLiveMatchesIsReturned() {
         var matchCountWrapper = new Object(){ int matchCount = 0; };
 
         matches.forEach(match -> {
@@ -64,7 +66,7 @@ public class ScoreBoardTest {
     }
 
     @Test
-    void givenMultipleMatchesOnScoreBoard_whenFinishGamesWithEvenMatchIds_ThenNumberOfLiveMatchesIsReturned() {
+    public void givenMultipleMatchesOnScoreBoard_whenFinishGamesWithEvenMatchIds_ThenNumberOfLiveMatchesIsReturned() {
         var matchCountWrapper = new Object(){ int matchCount = 0; };
 
         matches.forEach(match -> {
@@ -77,11 +79,32 @@ public class ScoreBoardTest {
                 return matchId % 2 == 0;
             })
             .forEach(evenMatchId -> {
-                scoreBoard.finishGame(evenMatchId);
+                assertTrue(scoreBoard.finishGame(evenMatchId));
                 matchCountWrapper.matchCount--;
             });
         
         assertEquals(matchCountWrapper.matchCount, ((ScoreBoard)scoreBoard).getLiveMatches().size());    
     }
+
+    @Test
+    public void givenMultipleMatchesOnScoreBoard_whenFinishGamesWithUnexistedMatchIds_ThenFalseIsReturnedForEachCall() {
+        var matchCountWrapper = new Object(){ int matchCount = 0; };
+
+        matches.forEach(match -> {
+            scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName());
+            matchCountWrapper.matchCount++;
+        });
+
+        IntStream.range(5, 10)
+            .forEach(matchId -> {
+                final boolean isFinished = scoreBoard.finishGame(matchId);
+                matchCountWrapper.matchCount = isFinished 
+                    ? matchCountWrapper.matchCount-- 
+                    : matchCountWrapper.matchCount;
+                assertFalse(isFinished);
+            });
+        assertEquals(matchCountWrapper.matchCount, ((ScoreBoard)scoreBoard).getLiveMatches().size()); 
+    }
+
 
 }

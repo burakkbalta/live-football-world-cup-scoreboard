@@ -23,8 +23,8 @@ public class ScoreBoard implements IScoreBoard {
      */
     @Override
     public boolean finishGame(final int matchId) {
-        // TODO Auto-generated method stub
-        return false;
+        Match match = liveMatches.remove(matchId);
+        return match != null;
     }
 
     /**
