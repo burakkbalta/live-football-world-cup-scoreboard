@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Map;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -106,5 +107,56 @@ public class ScoreBoardTest {
         assertEquals(matchCountWrapper.matchCount, ((ScoreBoard)scoreBoard).getLiveMatches().size()); 
     }
 
+    @Test
+    public void givenMultipleMatchesOnScoreBoard_whenMatchScoresAreUpdated_ThenTrueIsReturnedForEachCall() {
+        var matchCountWrapper = new Object(){ int matchCount = 0; };
+
+        matches.forEach(match -> {
+            assertEquals(matchCountWrapper.matchCount, 
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+            matchCountWrapper.matchCount++;
+        });
+
+        Map<Integer, MatchScore> updatedMatchScoresMatchIdMap = Map.of(
+            0, MatchScore.createWithCustomScores(0, 5),
+            1, MatchScore.createWithCustomScores(10, 2),
+            2, MatchScore.createWithCustomScores(2, 2),
+            3, MatchScore.createWithCustomScores(6, 6),
+            4, MatchScore.createWithCustomScores(3, 1)
+        );
+
+        updatedMatchScoresMatchIdMap.forEach((matchId, updatedMatchScore) -> {
+            assertTrue(scoreBoard.updateScore(matchId, 
+                    updatedMatchScore.getHomeTeamScore(), updatedMatchScore.getAwayTeamScore()));
+        });
+
+        ((ScoreBoard)scoreBoard).getLiveMatches().forEach((matchId, match) -> {
+            assertEquals(updatedMatchScoresMatchIdMap.get(matchId), match.getMatchScore());
+        });
+    }
+
+    @Test
+    public void givenScoreBoard_whenMatchScoresForNonExistentMatchesAreUpdated_ThenFalseIsReturnedForEachCall() {
+        var matchCountWrapper = new Object(){ int matchCount = 0; };
+
+        matches.forEach(match -> {
+            assertEquals(matchCountWrapper.matchCount, 
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+            matchCountWrapper.matchCount++;
+        });
+
+        Map<Integer, MatchScore> updatedMatchScoresMatchIdMap = Map.of(
+            5, MatchScore.createWithCustomScores(0, 5),
+            6, MatchScore.createWithCustomScores(10, 2),
+            7, MatchScore.createWithCustomScores(2, 2),
+            8, MatchScore.createWithCustomScores(6, 6),
+            9, MatchScore.createWithCustomScores(3, 1)
+        );
+
+        updatedMatchScoresMatchIdMap.forEach((matchId, updatedMatchScore) -> {
+            assertFalse(scoreBoard.updateScore(matchId, 
+                    updatedMatchScore.getHomeTeamScore(), updatedMatchScore.getAwayTeamScore()));
+        });
+    }
 
 }
