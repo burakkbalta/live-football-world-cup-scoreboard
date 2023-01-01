@@ -177,4 +177,90 @@ public class ScoreBoardTest {
         });
     }
 
+    @Test
+    @Order(7)
+    public void givenMultipleMatchesOnScoreBoard_whenGetSummaryInOrderByTotalScore_thenCorrectScoreBoardIsReturned() {
+        var matchCountWrapper = new Object(){ int matchCount = 0; };
+
+        matches.forEach(match -> {
+            assertEquals(matchCountWrapper.matchCount, 
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+            matchCountWrapper.matchCount++;
+        });
+
+        Map<Integer, MatchScore> updatedMatchScoresMatchIdMap = Map.of(
+            0, MatchScore.createWithCustomScores(0, 5),
+            1, MatchScore.createWithCustomScores(10, 2),
+            2, MatchScore.createWithCustomScores(2, 2),
+            3, MatchScore.createWithCustomScores(6, 6),
+            4, MatchScore.createWithCustomScores(3, 1)
+        );
+
+        updatedMatchScoresMatchIdMap.forEach((matchId, updatedMatchScore) -> {
+            assertTrue(scoreBoard.updateScore(matchId, 
+                    updatedMatchScore.getHomeTeamScore(), updatedMatchScore.getAwayTeamScore()));
+        });
+
+        StringBuilder summary = new StringBuilder();
+        summary.append("1. Uruguay 6 - Italy 6\n")
+            .append("2. Spain 10 - Brazil 2\n")
+            .append("3. Mexico 0 - Canada 5\n")
+            .append("4. Argentina 3 - Australia 1\n")
+            .append("5. Germany 2 - France 2\n");
+
+        assertEquals(summary.toString(), scoreBoard.getSummaryInOrderByTotalScore());
+
+    }
+
+    /**
+     * This function is similar to above function.
+     * The main difference is that in this test some matches are removed from scoreBoard by calling finishGame function.
+     * Returns summary in order by total score. 
+     */
+    @Test
+    @Order(8)
+    public void givenMultipleMatchesOnScoreBoard_whenMatchesWithOddMatchIdsAreFinished_thenJustLiveMatchesAreReturned() {
+        var matchCountWrapper = new Object(){ int matchCount = 0; };
+
+        matches.forEach(match -> {
+            assertEquals(matchCountWrapper.matchCount, 
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+            matchCountWrapper.matchCount++;
+        });
+
+        Map<Integer, MatchScore> updatedMatchScoresMatchIdMap = Map.of(
+            0, MatchScore.createWithCustomScores(0, 5),
+            1, MatchScore.createWithCustomScores(10, 2),
+            2, MatchScore.createWithCustomScores(2, 2),
+            3, MatchScore.createWithCustomScores(6, 6),
+            4, MatchScore.createWithCustomScores(3, 1)
+        );
+
+        updatedMatchScoresMatchIdMap.forEach((matchId, updatedMatchScore) -> {
+            assertTrue(scoreBoard.updateScore(matchId, 
+                    updatedMatchScore.getHomeTeamScore(), updatedMatchScore.getAwayTeamScore()));
+        });
+
+        IntStream.range(0, matchCountWrapper.matchCount)
+            .filter(matchId -> {
+                return matchId % 2 == 1;
+            })
+            .forEach(oddMatchId -> {
+                boolean isFinished = scoreBoard.finishGame(oddMatchId);
+                matchCountWrapper.matchCount = isFinished 
+                    ? matchCountWrapper.matchCount-- 
+                    : matchCountWrapper.matchCount;
+                assertTrue(isFinished);
+            });
+
+
+        StringBuilder summary = new StringBuilder();
+        summary.append("1. Mexico 0 - Canada 5\n")
+            .append("2. Argentina 3 - Australia 1\n")
+            .append("3. Germany 2 - France 2\n");
+
+        assertEquals(summary.toString(), scoreBoard.getSummaryInOrderByTotalScore());
+
+    }
+
 }
