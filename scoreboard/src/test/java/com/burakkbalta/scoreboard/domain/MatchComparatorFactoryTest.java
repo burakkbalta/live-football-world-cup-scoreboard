@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -15,6 +16,13 @@ import com.burakkbalta.scoreboard.enums.ComparatorTypes;
 import com.burakkbalta.scoreboard.interfaces.IMatchComparator;
 
 public class MatchComparatorFactoryTest {
+
+    private MatchComparatorFactory matchComparatorFactory = null;
+
+    @BeforeEach
+    void setUp() {
+        matchComparatorFactory = new MatchComparatorFactory();
+    }
 
     private static Stream<Arguments> comparatorsDataProvider() {
         return Stream.of(
@@ -37,6 +45,7 @@ public class MatchComparatorFactoryTest {
     @ParameterizedTest(name="Match #{index}")
     @MethodSource("comparatorsDataProvider")
     public void testGetMatchComparator(IMatchComparator matchComparator, Class<? extends IMatchComparator> compClass) {
+        assertEquals(MatchComparatorFactory.class, matchComparatorFactory.getClass());
         assertEquals(compClass, matchComparator.getClass());
     }
 }
