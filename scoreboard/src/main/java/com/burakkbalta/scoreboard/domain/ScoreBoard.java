@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import com.burakkbalta.scoreboard.enums.ComparatorTypes;
 import com.burakkbalta.scoreboard.interfaces.IScoreBoard;
 
 public class ScoreBoard implements IScoreBoard {
@@ -40,19 +41,9 @@ public class ScoreBoard implements IScoreBoard {
     public String getSummaryInOrderByTotalScore() {
         var matchesList = liveMatches.values().stream().collect(Collectors.toList());
         var sortedMatches = matchesList.stream()
-                .sorted((lhs, rhs) -> { 
-                    int lhsTotalScore = lhs.getMatchScore().getHomeTeamScore() 
-                            + lhs.getMatchScore().getAwayTeamScore();      
-                    int rhsTotalScore = rhs.getMatchScore().getHomeTeamScore() 
-                            + rhs.getMatchScore().getAwayTeamScore();
-                    if(rhsTotalScore > lhsTotalScore) {
-                        return 1;
-                    } else if(lhsTotalScore == rhsTotalScore) {
-                        return rhs.getStartTime().compareTo(lhs.getStartTime());
-                    } else {
-                        return -1;
-                    }                
-                }).toList();
+            .sorted(MatchComparatorFactory.getMatchComparator(ComparatorTypes.InOrderByTotalScoreAndLastAddedTime,
+                     false))
+            .toList();
         return getSummary(sortedMatches);        
     }
 
