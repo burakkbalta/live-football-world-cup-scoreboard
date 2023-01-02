@@ -1,7 +1,6 @@
 package com.burakkbalta.scoreboard.domain;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -81,25 +80,4 @@ public class ScoreBoard implements IScoreBoard {
     public Map<Integer, Match> getLiveMatches() {
         return liveMatches;
     }
-
-    private String getSummary(final List<Match> sortedMatches) {
-        StringBuilder summary = new StringBuilder();
-        Match match = null;
-        for(int i = 1; i<=sortedMatches.size(); i++) {
-            match = sortedMatches.get(i-1);
-            summary.append(i)
-                .append(". ")
-                .append(match.getHomeTeamName())
-                .append(" ")
-                .append(match.getMatchScore().getHomeTeamScore())
-                .append(" - ")
-                .append(match.getAwayTeamName())
-                .append(" ")
-                .append(match.getMatchScore().getAwayTeamScore())
-                .append("\n");
-        }
-
-        return summary.toString();
-    }
-    
 }
