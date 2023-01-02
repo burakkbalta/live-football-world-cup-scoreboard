@@ -99,11 +99,11 @@ public class ExtendedScoreBoardTest {
         });
 
         StringBuilder summary = new StringBuilder();
-        summary.append("1. Uruguay 6 - Italy 6\n")
-            .append("2. Spain 10 - Brazil 2\n")
+        summary.append("1. Spain 10 - Brazil 2\n")
+            .append("2. Uruguay 6 - Italy 6\n")
             .append("3. Mexico 0 - Canada 5\n")
-            .append("4. Argentina 3 - Australia 1\n")
-            .append("5. Germany 2 - France 2\n");
+            .append("4. Germany 2 - France 2\n")
+            .append("5. Argentina 3 - Australia 1\n");
 
         assertEquals(summary.toString(), scoreBoard.getSummaryInOrderByTotalScore(false));
 
@@ -133,12 +133,11 @@ public class ExtendedScoreBoardTest {
         });
 
         StringBuilder summary = new StringBuilder();
-        summary.append("1. Argentina 3 - Australia 1\n")
-            .append("3. Germany 2 - France 2\n")
+        summary.append("1. Germany 2 - France 2\n")
+            .append("2. Argentina 3 - Australia 1\n")
             .append("3. Mexico 0 - Canada 5\n")
-            .append("4. Uruguay 6 - Italy 6\n")
-            .append("5. Spain 10 - Brazil 2\n");
-            
+            .append("4. Spain 10 - Brazil 2\n")
+            .append("5. Uruguay 6 - Italy 6\n");
             
         assertEquals(summary.toString(), scoreBoard.getSummaryInOrderByTotalScore(true));
     }
@@ -242,11 +241,11 @@ public class ExtendedScoreBoardTest {
             });
 
         StringBuilder summary = new StringBuilder();
-        summary.append("1. Argentina 3 - Australia 1\n")
+        summary.append("1. Spain 10 - Brazil 2\n")
             .append("2. Uruguay 6 - Italy 6\n")
-            .append("3. Germany 2 - France 2\n")
-            .append("4. Spain 10 - Brazil 2\n")
-            .append("5. Mexico 0 - Canada 5\n");
+            .append("3. Mexico 0 - Canada 5\n")
+            .append("4. Germany 2 - France 2\n")
+            .append("5. Argentina 3 - Australia 1\n");
 
         assertEquals(summary.toString(), scoreBoard.getSummaryForAllMatchesInOrderByTotalScore(false));
     }
@@ -284,11 +283,12 @@ public class ExtendedScoreBoardTest {
             });
 
         StringBuilder summary = new StringBuilder();
-        summary.append("1. Argentina 3 - Australia 1\n")
-            .append("3. Germany 2 - France 2\n")
+        summary.append("1. Germany 2 - France 2\n")
+            .append("2. Argentina 3 - Australia 1\n")
             .append("3. Mexico 0 - Canada 5\n")
-            .append("4. Uruguay 6 - Italy 6\n")
-            .append("5. Spain 10 - Brazil 2\n");
+            .append("4. Spain 10 - Brazil 2\n")
+            .append("5. Uruguay 6 - Italy 6\n");
+            
         assertEquals(summary.toString(), scoreBoard.getSummaryForAllMatchesInOrderByTotalScore(true));
     }
 

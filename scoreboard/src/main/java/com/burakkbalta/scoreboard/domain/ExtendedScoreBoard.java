@@ -2,7 +2,9 @@ package com.burakkbalta.scoreboard.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.burakkbalta.scoreboard.enums.ComparatorTypes;
 import com.burakkbalta.scoreboard.interfaces.IExtendedScoreBoard;
 
 public class ExtendedScoreBoard extends ScoreBoard implements IExtendedScoreBoard {
@@ -29,26 +31,43 @@ public class ExtendedScoreBoard extends ScoreBoard implements IExtendedScoreBoar
 
     @Override
     public String getSummaryInOrderByStartTime(boolean isAscending) {
-        // TODO Auto-generated method stub
-        return null;
+        var matchesList = super.getLiveMatches().values().stream().collect(Collectors.toList());
+        var sortedMatches = matchesList.stream()
+            .sorted(MatchComparatorFactory.getMatchComparator(ComparatorTypes.InOrderByStartTime,
+                    isAscending))
+            .toList();
+        return getSummary(sortedMatches); 
     }
 
     @Override
     public String getSummaryInOrderByTotalScore(boolean isAscending) {
-        // TODO Auto-generated method stub
-        return null;
+        var matchesList = super.getLiveMatches().values().stream().collect(Collectors.toList());
+        var sortedMatches = matchesList.stream()
+            .sorted(MatchComparatorFactory.getMatchComparator(ComparatorTypes.InOrderByTotalScore,
+                    isAscending))
+            .toList();
+        return getSummary(sortedMatches); 
     }
 
     @Override
     public String getSummaryForAllMatchesInOrderByTotalScore(boolean isAscending) {
-        // TODO Auto-generated method stub
-        return null;
+        var matchesList = super.getLiveMatches().values().stream().collect(Collectors.toList());
+        matchesList.addAll(finishedMatches.values().stream().collect(Collectors.toList()));
+        var sortedMatches = matchesList.stream()
+            .sorted(MatchComparatorFactory.getMatchComparator(ComparatorTypes.InOrderByTotalScore,
+                    isAscending))
+            .toList();
+        return getSummary(sortedMatches); 
     }
 
     @Override
     public String getSummaryForFinishedMatchesInOrderByTotalScore(boolean isAscending) {
-        // TODO Auto-generated method stub
-        return null;
+        var matchesList = finishedMatches.values().stream().collect(Collectors.toList());
+        var sortedMatches = matchesList.stream()
+            .sorted(MatchComparatorFactory.getMatchComparator(ComparatorTypes.InOrderByTotalScore,
+                    isAscending))
+            .toList();
+        return getSummary(sortedMatches); 
     }
 
     
