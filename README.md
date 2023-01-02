@@ -34,28 +34,28 @@ Usage
   `String getSummaryInOrderByTotalScore()`: returns a string with a summary of live matches sorted by total score.
     If there are multiple games with same total score, they are returned in the order they were last added.
 
-  ScoreBoard scoreboard = new ScoreBoard();
+  - ScoreBoard scoreboard = new ScoreBoard();
 
   - start a new game 
-  matchId = scoreboard.startGame("Mexico", "Canada");
+  -- matchId = scoreboard.startGame("Mexico", "Canada");
 
   - update the score of the game 
-  scoreboard.updateScore(matchId, 0, 5);
+    - scoreboard.updateScore(matchId, 0, 5);
 
   - start another game 
-  anotherMatchId = scoreboard.startGame("Spain", "Brazil");
+    - anotherMatchId = scoreboard.startGame("Spain", "Brazil");
 
   - finish the game 
-  scoreboard.finishGame(anotherMatchId);
+    - scoreboard.finishGame(anotherMatchId);
 
   - get summary for live matches sorted by total score 
-  scoreboard.getSummaryInOrderByTotalScore();
+    - scoreboard.getSummaryInOrderByTotalScore();
 
-  Notes
-    - ExtendenScoreBoard class has been implemented. It provides more functionality regarding getting summary. 
-    - Several Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator. 
-    - The topics such as ErrorHandling, Serialization, Thread-Safety are not taken into consideration while implementing this application. 
-    - Code coverage report has been added. According to this report, most of the implementation codes have been covered and verified. 
+Notes 
+      - ExtendenScoreBoard class has been implemented. It provides more functionality regarding getting summary. 
+      - Several Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator. 
+      - The topics such as ErrorHandling, Serialization, Thread-Safety are not taken into consideration while implementing this application. 
+      - Code coverage report has been added. According to this report, most of the implementation codes have been covered and verified. 
 
 
    
