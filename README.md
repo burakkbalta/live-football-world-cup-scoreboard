@@ -37,7 +37,7 @@ Usage
   - ScoreBoard scoreboard = new ScoreBoard();
 
   - start a new game 
-  -- matchId = scoreboard.startGame("Mexico", "Canada");
+    - matchId = scoreboard.startGame("Mexico", "Canada");
 
   - update the score of the game 
     - scoreboard.updateScore(matchId, 0, 5);
@@ -52,10 +52,10 @@ Usage
     - scoreboard.getSummaryInOrderByTotalScore();
 
 Notes 
-      - ExtendenScoreBoard class has been implemented. It provides more functionality regarding getting summary. 
-      - Several Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator. 
-      - The topics such as ErrorHandling, Serialization, Thread-Safety are not taken into consideration while implementing this application. 
-      - Code coverage report has been added. According to this report, most of the implementation codes have been covered and verified. 
+  -  ExtendenScoreBoard class has been implemented. It provides more functionality regarding getting summary. 
+  - Several Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator. 
+  - The topics such as ErrorHandling, Serialization, Thread-Safety are not taken into consideration while implementing this application. 
+  - Code coverage report has been added. According to this report, most of the implementation codes have been covered and verified. 
 
 
    
