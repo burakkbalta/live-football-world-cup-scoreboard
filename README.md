@@ -12,11 +12,11 @@ The application has the following features:
     
 Requirements
   - Java 17 or later
-  - Maven
+  - Maven 3.8.4 or higher
 
 Installation
-  1. Clone the repository from the following repo:
-    - git clone https://github.com/burakkbalta/live-football-world-cup-scoreboard.git
+  1. Clone the repository from the following repo: <br />
+    `git clone https://github.com/burakkbalta/live-football-world-cup-scoreboard.git`
   2. Import the project into your favorite Java IDE.
   3. Build and run the project.
 
@@ -34,22 +34,24 @@ Usage
   `String getSummaryInOrderByTotalScore()`: returns a string with a summary of live matches sorted by total score.
     If there are multiple games with same total score, they are returned in the order they were last added.
 
-  - ScoreBoard scoreboard = new ScoreBoard();
+  - create a score board object
+    - `ScoreBoard scoreboard = new ScoreBoard();` or <br />
+    - `IScoreBoard scoreboard = ScoreBoardFactory.getScoreBoard(ScoreBoardTypes.Default);` <br />
 
   - start a new game 
-    - matchId = scoreboard.startGame("Mexico", "Canada");
+    - `matchId = scoreboard.startGame("Mexico", "Canada");` <br />
 
   - update the score of the game 
-    - scoreboard.updateScore(matchId, 0, 5);
+    - `scoreboard.updateScore(matchId, 0, 5);` <br />
 
   - start another game 
-    - anotherMatchId = scoreboard.startGame("Spain", "Brazil");
+    - `anotherMatchId = scoreboard.startGame("Spain", "Brazil");` <br />
 
   - finish the game 
-    - scoreboard.finishGame(anotherMatchId);
+    - `scoreboard.finishGame(anotherMatchId);` <br />
 
   - get summary for live matches sorted by total score 
-    - scoreboard.getSummaryInOrderByTotalScore();
+    - `scoreboard.getSummaryInOrderByTotalScore();` <br />
 
 Code Coverage
   - To generate the unit test code coverage report, the following command should be run in the folder where the pom.xml is located.
@@ -59,7 +61,7 @@ Code Coverage
 Notes 
   - The ExtendenScoreBoard class has been implemented. It provides more functionality in getting summaries. 
   - The various Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator. 
-  - The topics such as ErrorHandling, Serialization, Thread-Safety were not taken into consideration while implementing this application. 
+  - The topics such as ErrorHandling, Logging, Serialization, Thread-Safety were not taken into consideration while implementing this application. 
   - According to the unit test code coverage report, most of the application code has been covered and verified. 
 
 
