@@ -36,26 +36,25 @@ Usage
 
   ScoreBoard scoreboard = new ScoreBoard();
 
-  // start a new game
+  - start a new game 
   matchId = scoreboard.startGame("Mexico", "Canada");
 
-  // update the score of the game
+  - update the score of the game 
   scoreboard.updateScore(matchId, 0, 5);
 
-  // start another game
+  - start another game 
   anotherMatchId = scoreboard.startGame("Spain", "Brazil");
 
-  // finish the game 
+  - finish the game 
   scoreboard.finishGame(anotherMatchId);
 
-  // get summary for live matches sorted by total score
+  - get summary for live matches sorted by total score 
   scoreboard.getSummaryInOrderByTotalScore();
 
-
   Notes
-    - ExtendenScoreBoard class has been implemented. It provides more functionality regarding getting summary.
-    - Several Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator.
-    - The topics such as ErrorHandling, Serialization, Thread-Safety are not taken into consideration while implementing this application.
+    - ExtendenScoreBoard class has been implemented. It provides more functionality regarding getting summary. 
+    - Several Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator. 
+    - The topics such as ErrorHandling, Serialization, Thread-Safety are not taken into consideration while implementing this application. 
     - Code coverage report has been added. According to this report, most of the implementation codes have been covered and verified. 
 
 
