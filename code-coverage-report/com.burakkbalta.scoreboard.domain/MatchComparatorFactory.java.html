@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="tr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatchComparatorFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">scoreboard</a> &gt; <a href="index.source.html" class="el_package">com.burakkbalta.scoreboard.domain</a> &gt; <span class="el_source">MatchComparatorFactory.java</span></div><h1>MatchComparatorFactory.java</h1><pre class="source lang-java linenums">package com.burakkbalta.scoreboard.domain;
+
+import com.burakkbalta.scoreboard.comparators.StartTimeComparator;
+import com.burakkbalta.scoreboard.comparators.TotalScoreAndStartTimeComparator;
+import com.burakkbalta.scoreboard.comparators.TotalScoreComparator;
+import com.burakkbalta.scoreboard.enums.ComparatorTypes;
+import com.burakkbalta.scoreboard.interfaces.IMatchComparator;
+
+<span class="fc" id="L9">public class MatchComparatorFactory {</span>
+
+    public static IMatchComparator getMatchComparator(ComparatorTypes type, boolean isAscending) {
+<span class="fc" id="L12">        IMatchComparator matchComparator = null;</span>
+
+<span class="pc bpc" id="L14" title="1 of 4 branches missed.">        switch(type) {</span>
+            case InOrderByTotalScore:
+<span class="fc" id="L16">                matchComparator = new TotalScoreComparator(isAscending);</span>
+<span class="fc" id="L17">                break;</span>
+            case InOrderByStartTime:
+<span class="fc" id="L19">                matchComparator = new StartTimeComparator(isAscending);</span>
+<span class="fc" id="L20">                break;</span>
+            case InOrderByTotalScoreAndLastAddedTime:
+<span class="fc" id="L22">                matchComparator = new TotalScoreAndStartTimeComparator(isAscending, isAscending);</span>
+<span class="fc" id="L23">                break;</span>
+            default:
+<span class="nc" id="L25">                matchComparator = new TotalScoreAndStartTimeComparator(false, false);</span>
+                break;    
+        }
+
+<span class="fc" id="L29">        return matchComparator;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

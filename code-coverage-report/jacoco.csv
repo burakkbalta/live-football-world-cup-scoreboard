@@ -1,0 +1,15 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+scoreboard,com.burakkbalta.scoreboard,App,0,91,0,0,0,19,0,2,0,2
+scoreboard,com.burakkbalta.scoreboard.enums,ComparatorTypes,0,21,0,0,0,4,0,1,0,1
+scoreboard,com.burakkbalta.scoreboard.enums,ScoreBoardTypes,0,15,0,0,0,3,0,1,0,1
+scoreboard,com.burakkbalta.scoreboard.interfaces,IMatchComparator,0,5,0,0,0,1,0,1,0,1
+scoreboard,com.burakkbalta.scoreboard.interfaces,IScoreBoard,0,52,0,2,0,15,0,2,0,1
+scoreboard,com.burakkbalta.scoreboard.comparators,TotalScoreComparator,0,38,0,2,0,12,0,3,0,2
+scoreboard,com.burakkbalta.scoreboard.comparators,TotalScoreAndStartTimeComparator,0,33,0,2,0,9,0,3,0,2
+scoreboard,com.burakkbalta.scoreboard.comparators,StartTimeComparator,0,25,0,2,0,8,0,3,0,2
+scoreboard,com.burakkbalta.scoreboard.domain,MatchComparatorFactory,6,31,1,3,1,10,1,4,0,2
+scoreboard,com.burakkbalta.scoreboard.domain,MatchScore,0,86,0,6,0,29,0,12,0,9
+scoreboard,com.burakkbalta.scoreboard.domain,ExtendedScoreBoard,0,121,1,1,0,29,1,7,0,7
+scoreboard,com.burakkbalta.scoreboard.domain,ScoreBoard,0,88,0,4,0,21,0,8,0,6
+scoreboard,com.burakkbalta.scoreboard.domain,ScoreBoardFactory,4,22,1,2,1,8,1,3,0,2
+scoreboard,com.burakkbalta.scoreboard.domain,Match,0,94,0,6,0,30,0,11,0,8
