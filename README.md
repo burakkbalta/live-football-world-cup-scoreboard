@@ -15,8 +15,8 @@ Requirements
   - Maven
 
 Installation
-  1. Clone the repository:
-    git clone https://github.com/burakkbalta/live-football-world-cup-scoreboard.git
+  1. Clone the repository from the following repo:
+    - git clone https://github.com/burakkbalta/live-football-world-cup-scoreboard.git
   2. Import the project into your favorite Java IDE.
   3. Build and run the project.
 
@@ -51,11 +51,16 @@ Usage
   - get summary for live matches sorted by total score 
     - scoreboard.getSummaryInOrderByTotalScore();
 
+Code Coverage
+  - To generate the unit test code coverage report, the following command should be run in the folder where the pom.xml is located.
+    - `mvn jacoco:prepare-agent test install jacoco:report`
+  - The report is generated under the `/scoreboard/target/site/jacoco` folder. This generated report can be viewed by opening `index.html` under this folder.   
+
 Notes 
-  -  ExtendenScoreBoard class has been implemented. It provides more functionality regarding getting summary. 
-  - Several Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator. 
-  - The topics such as ErrorHandling, Serialization, Thread-Safety are not taken into consideration while implementing this application. 
-  - Code coverage report has been added. According to this report, most of the implementation codes have been covered and verified. 
+  - The ExtendenScoreBoard class has been implemented. It provides more functionality in getting summaries. 
+  - The various Comparator classes have been implemented to increase decoupling relationship between ScoreBoard and Comparator. 
+  - The topics such as ErrorHandling, Serialization, Thread-Safety were not taken into consideration while implementing this application. 
+  - According to the unit test code coverage report, most of the application code has been covered and verified. 
 
 
    
