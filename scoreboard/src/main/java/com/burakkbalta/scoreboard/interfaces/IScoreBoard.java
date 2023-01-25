@@ -1,13 +1,14 @@
 package com.burakkbalta.scoreboard.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.burakkbalta.scoreboard.domain.Match;
 
 public interface IScoreBoard {
 
-    // Returns Match Id that refers the started match
-    int startGame(final String homeTeamName, final String awayTeamName);
+    // Returns Match Id that refers the started match if entries are correct
+    Optional<Integer> startGame(final String homeTeamName, final String awayTeamName);
     boolean finishGame(final int matchId);
     boolean updateScore(final int matchId, final int homeTeamScore, final int awayTeamScore);
     String getSummaryInOrderByTotalScore();

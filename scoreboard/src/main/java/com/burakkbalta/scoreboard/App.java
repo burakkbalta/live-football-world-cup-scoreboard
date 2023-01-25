@@ -19,17 +19,17 @@ public class App
         var uruItaId = scoreBoard.startGame("Uruguay", "Italy");
         var argAusId = scoreBoard.startGame("Argentina", "Australia");
 
-        System.out.println(scoreBoard.updateScore(mexCanId, 0, 5));
-        System.out.println(scoreBoard.updateScore(spaBraId, 10, 2));
-        System.out.println(scoreBoard.updateScore(gerFraId, 2, 2));
-        System.out.println(scoreBoard.updateScore(uruItaId, 6, 6));
-        System.out.println(scoreBoard.updateScore(argAusId, 3, 1));
+        System.out.println(scoreBoard.updateScore(mexCanId.get(), 0, 5));
+        System.out.println(scoreBoard.updateScore(spaBraId.get(), 10, 2));
+        System.out.println(scoreBoard.updateScore(gerFraId.get(), 2, 2));
+        System.out.println(scoreBoard.updateScore(uruItaId.get(), 6, 6));
+        System.out.println(scoreBoard.updateScore(argAusId.get(), 3, 1));
 
         System.out.println("Summary");
         System.out.println(scoreBoard.getSummaryInOrderByTotalScore());
 
-        System.out.println(scoreBoard.finishGame(mexCanId));
-        System.out.println(scoreBoard.finishGame(uruItaId));
+        System.out.println(scoreBoard.finishGame(mexCanId.get()));
+        System.out.println(scoreBoard.finishGame(uruItaId.get()));
 
         System.out.println("Updated Summary");
         System.out.println(scoreBoard.getSummaryInOrderByTotalScore());

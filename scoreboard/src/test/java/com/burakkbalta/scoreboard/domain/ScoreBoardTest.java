@@ -63,7 +63,7 @@ public class ScoreBoardTest {
         var awayTeam = match.getAwayTeamName();
         var matchId = scoreBoard.startGame(homeTeam, awayTeam);
 
-        assertEquals(correspondingMatchId, matchId);
+        assertEquals(correspondingMatchId, matchId.get());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -130,7 +130,7 @@ public class ScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -159,7 +159,7 @@ public class ScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -184,7 +184,7 @@ public class ScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -224,7 +224,7 @@ public class ScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 

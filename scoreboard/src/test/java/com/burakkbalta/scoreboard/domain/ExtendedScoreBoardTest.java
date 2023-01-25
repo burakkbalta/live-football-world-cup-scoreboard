@@ -81,7 +81,7 @@ public class ExtendedScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -115,7 +115,7 @@ public class ExtendedScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -148,7 +148,7 @@ public class ExtendedScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -181,7 +181,7 @@ public class ExtendedScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -214,7 +214,7 @@ public class ExtendedScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -256,7 +256,7 @@ public class ExtendedScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -298,7 +298,7 @@ public class ExtendedScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 
@@ -337,7 +337,7 @@ public class ExtendedScoreBoardTest {
 
         matches.forEach(match -> {
             assertEquals(matchCountWrapper.matchCount, 
-                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()));
+                    scoreBoard.startGame(match.getHomeTeamName(), match.getAwayTeamName()).get());
             matchCountWrapper.matchCount++;
         });
 

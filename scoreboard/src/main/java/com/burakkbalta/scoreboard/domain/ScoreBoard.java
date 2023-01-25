@@ -1,8 +1,11 @@
 package com.burakkbalta.scoreboard.domain;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.burakkbalta.scoreboard.enums.ComparatorTypes;
@@ -53,12 +56,22 @@ public class ScoreBoard implements IScoreBoard {
      * @return Match id that indicates the started match.
      */
     @Override
-    public int startGame(final String homeTeamName, final String awayTeamName) {
+    public Optional<Integer> startGame(final String homeTeamName, final String awayTeamName) {
+        Optional<Integer> matchId = Optional.empty();
         Match match = Match.createMatch(homeTeamName, awayTeamName);
-        liveMatches.put(matchIdCounter.incrementAndGet(), match);
-        return matchIdCounter.get();
+        Predicate<Match> matchPred = m -> (liveMatches.values().stream().anyMatch(mt -> {
+            return (mt.getHomeTeamName().equals(m.getHomeTeamName()) 
+                || mt.getHomeTeamName().equals(m.getAwayTeamName())
+                || mt.getAwayTeamName().equals(m.getHomeTeamName())
+                || mt.getAwayTeamName().equals(m.getAwayTeamName()));  
+        }));
+        if(!checkEntryIsValid(matchPred, match)) {
+            liveMatches.put(matchIdCounter.incrementAndGet(), match);
+            matchId = Optional.of(matchIdCounter.get());
+        }
+        
+        return matchId;
     }
-
     /**
      * Updates a game score.
      * @param matchId : Indicates the game to be updated
@@ -67,8 +80,14 @@ public class ScoreBoard implements IScoreBoard {
      */
     @Override
     public boolean updateScore(final int matchId, final int homeTeamScore, final int awayTeamScore) {
-        Match match = liveMatches.get(matchId);
-        if(match != null) {
+        Predicate<Integer> homeTeamScorePred = homeScore -> (homeScore >= 0); 
+        Predicate<Integer> awayTeamScorePred = awayScore -> (awayScore >= 0);
+        Predicate<Integer> isMatchExistPred = mId -> (liveMatches.containsKey(matchId));
+        boolean isEntryValid = checkEntryIsValid(homeTeamScorePred, homeTeamScore) 
+            && checkEntryIsValid(awayTeamScorePred, awayTeamScore) 
+            && checkEntryIsValid(isMatchExistPred, matchId);
+        if(isEntryValid) {
+            Match match = liveMatches.get(matchId);
             match.getMatchScore().setHomeTeamScore(homeTeamScore);
             match.getMatchScore().setAwayTeamScore(awayTeamScore);
             return true;
@@ -78,6 +97,11 @@ public class ScoreBoard implements IScoreBoard {
     }
 
     public Map<Integer, Match> getLiveMatches() {
-        return liveMatches;
+        final Map<Integer, Match> unmodifiableMap = Collections.unmodifiableMap(liveMatches);
+        return unmodifiableMap;
+    }
+
+    private <T> boolean checkEntryIsValid(Predicate<T> predicate, T toBeTested) {
+        return predicate.test(toBeTested);
     }
 }
